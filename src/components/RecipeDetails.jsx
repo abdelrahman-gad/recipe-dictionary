@@ -6,7 +6,7 @@ export default class RecipeDetails extends Component {
   };
   async componentDidMount() {
     const id = this.props.id;
-    const url=`https://www.food2fork.com/api/get?key=ca8008a084d309c5039eabab61d3ed7a
+    const url = `https://www.food2fork.com/api/get?key=ca8008a084d309c5039eabab61d3ed7a
     
     &rId=${id}`;
     // const url = `https://www.food2fork.com/api/search?key=ca8008a084d309c5039eabab61d3ed7a&rId=${id}`;
@@ -16,11 +16,14 @@ export default class RecipeDetails extends Component {
       const data = await fetch(url);
       const jsonData = await data.json();
       console.log(jsonData);
-      this.setState((state, props) => {
-        return {
-          recipe: jsonData.recipe
-        };
-      });
+      this.setState(
+        (state, props) => {
+          return {
+            recipe: jsonData.recipe
+          };
+        },
+        () => {}
+      );
     } catch (err) {
       console.log(err);
     }
@@ -36,6 +39,7 @@ export default class RecipeDetails extends Component {
       ingredients
     } = this.state.recipe;
     //console.log(this.state.recipe);
+    const { handleIndex } = this.props;
     return (
       <React.Fragment>
         <div className="container">
@@ -44,6 +48,7 @@ export default class RecipeDetails extends Component {
               <button
                 type="button"
                 className="btn btn-warning mb-5 text-capitalize "
+                onClick={() => handleIndex(1)}
               >
                 Back to recipes list{" "}
               </button>
@@ -61,19 +66,19 @@ export default class RecipeDetails extends Component {
                 provided bt {publisher}{" "}
               </h6>
               <a
-                url={publisher_url}
+                href={publisher_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary text-capitalize"
+                className="btn btn-primary text-capitalize text-white"
               >
                 {" "}
                 Publisher Webpage{" "}
               </a>
               <a
-                url={publisher_url}
+                href={publisher_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-success text-capitalize mx-3"
+                className="btn btn-success text-capitalize mx-3 text-white"
               >
                 {" "}
                 recipe url
